@@ -14,7 +14,9 @@ const Home = () => {
 
   const fetchWordMeanings = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:5000/?word=${word}`);
+      const response = await fetch(
+        `https://bookplusmeaningbe.onrender.com/?word=${word}`
+      );
       if (!response.ok) {
         toast("No definitions found. Please try a different word.");
         return; // Exit early if the response is not OK
