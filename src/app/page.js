@@ -6,7 +6,6 @@ import Button from "react-bootstrap/Button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const Home = () => {
   const [word, setWord] = useState("");
   const [wordMeanings, setWordMeanings] = useState([]);
@@ -39,7 +38,23 @@ const Home = () => {
     }
     fetchWordMeanings();
   };
-
+  const handleCopyClick = () => {
+    // Copy the content to the clipboard
+    navigator.clipboard
+      .writeText(
+        wordMeanings
+          .map((entry) => `${entry.word}: ${entry.meaning}`)
+          .join("\n")
+      )
+      .then(() => {
+        toast("Content copied to clipboard!");
+        // Optionally show a success message or toast here
+      })
+      .catch((err) => {
+        toast("Error copying content: ", err);
+        // Optionally show an error message
+      });
+  };
   return (
     <div className="home">
       <ToastContainer />
@@ -69,6 +84,9 @@ const Home = () => {
           />
           <Button variant="dark" type="submit" onClick={handleSubmit}>
             Get Meaning
+          </Button>
+          <Button variant="light" type="button" onClick={handleCopyClick}>
+            Copy All
           </Button>
         </div>
       </div>
