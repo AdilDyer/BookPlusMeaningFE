@@ -6,6 +6,7 @@ import Button from "react-bootstrap/Button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+
 const Home = () => {
   const [word, setWord] = useState("");
   const [wordMeanings, setWordMeanings] = useState([]);

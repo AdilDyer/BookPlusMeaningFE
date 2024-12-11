@@ -11,10 +11,12 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "next": "15.1.0",
+    "nltk": "^0.0.1",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.6",
     "react-dom": "^19.0.0",
-    "react-toastify": "^10.0.6"
+    "react-toastify": "^10.0.6",
+    "wordnet": "^2.0.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -22,5 +24,8 @@
     "eslint-config-next": "15.1.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1"
+  },
+  "engines": {
+    "node": "23.x"
   }
 }
