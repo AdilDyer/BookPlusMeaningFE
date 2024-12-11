@@ -1,21 +1,88 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* {
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+.home {
+  background-color: black;
+  height: 100vh;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .container {
+    border-radius: 2rem;
+    box-shadow: 0 0 20px 0 rgba(255, 235, 205, 0.588);
+    background-color: blanchedalmond;
+    width: 50%;
+    height: 50%;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    .meaningContainer {
+      width: 100%;
+      height: 80%;
+      box-shadow: inline 0 0 20px 0 black;
+      border-radius: inherit;
+      background-color: rgba(255, 0, 0, 0.582);
+      display: flex;
+      justify-content: start;
+      overflow: scroll;
+      padding: 2rem;
+      flex-direction: column;
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+    .meaningContainer::-webkit-scrollbar {
+      display: none;
+    }
+    .inputContainer {
+      width: 100%;
+      height: 20%;
+      background-color: rgb(255, 219, 165);
+      border-radius: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      gap: 1rem;
+      input {
+        background-color: transparent;
+        width: 80%;
+        height: 100%;
+        border-radius: inherit;
+      }
+      button {
+        width: 20%;
+        height: 100%;
+        border-radius: inherit;
+        font-size: 0.8rem;
+      }
+    }
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@media (max-width: 1000px) {
+  .home {
+    .container {
+      width: 80%;
+      height: 80%;
+      .inputContainer {
+        flex-direction: column;
+        input {
+          width: 100%;
+          height: 50%;
+        }
+        button {
+          width: 100%;
+          height: 50%;
+        }
+      }
+    }
+  }
 }
