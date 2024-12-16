@@ -1,96 +1,31 @@
 "use client";
-import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-
-import { ToastContainer, toast } from "react-toastify";
+import React from "react";
+//Context to manage the state of the word and its meanings which includes "word": input word, "setWord", "wordMeanings": array, "error" : on failing to fetch a result(due to error and not non-availability of meaning), "handleSubmit":to push fetching req from server; where the response includes the given word and its meaning if available, else an error which could be shown in the error component above the menu(in case of failed to fethc) or displayed as a toast( in case of non-availability of meaning), "handleCopyClick": to copy the meanings to the clipboard
+import { WordProvider } from "./utils/wordContext";
+//Component to display the meanings of the words entered by the user in a list form above the input div
+import MeaningDisplay from "./components/MeaningDisplay";
+//Component To get the word input from the user
+import WordInput from "./components/WordInput";
+//To show the error when the word is not found and to show the success message when the content is copied to the clipboard
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+/*
+Homepage where a user will enter a word to get its meaning and the meaning will be displayed in a list form above the input field.
+Then the user can keep asking for more words and their meanings will be keep appending in that list
+When the user is finished, they can copy all the meanings to the clipboard and paste it wherever they want, it would be in the line by line format with word and its meaning separated by a colon and words highlighted in bold.
+*/
 const Home = () => {
-  const [word, setWord] = useState("");
-  const [wordMeanings, setWordMeanings] = useState([]);
-  const [error, setError] = useState("");
-
-  const fetchWordMeanings = async () => {
-    try {
-      const response = await fetch(
-        `https://bookplusmeaningbe.onrender.com/?word=${word}`
-      );
-      if (!response.ok) {
-        toast("No definitions found. Please try a different word.");
-        return; // Exit early if the response is not OK
-      }
-      const data = await response.json();
-      setWordMeanings((prevMeanings) => [
-        ...prevMeanings,
-        { word: data.word, meaning: data.meaning },
-      ]);
-      setError("");
-    } catch (err) {
-      setError(err.message);
-    }
-  };
-
-  const handleSubmit = () => {
-    if (word.trim() === "") {
-      setError("Please enter a word to fetch its meaning.");
-      return;
-    }
-    fetchWordMeanings();
-  };
-  const handleCopyClick = () => {
-    // Copy the content to the clipboard
-    navigator.clipboard
-      .writeText(
-        wordMeanings
-          .map((entry) => `${entry.word}: ${entry.meaning}`)
-          .join("\n")
-      )
-      .then(() => {
-        toast("Content copied to clipboard!");
-        // Optionally show a success message or toast here
-      })
-      .catch((err) => {
-        toast("Error copying content: ", err);
-        // Optionally show an error message
-      });
-  };
   return (
-    <div className="home">
-      <ToastContainer />
-      <div className="container">
-        <div className="meaningContainer">
-          {error && <p className="error">{error}</p>}
-          {wordMeanings.length > 0 &&
-            wordMeanings.map((entry, index) => (
-              <p key={index}>
-                <strong>{entry.word}:</strong> {entry.meaning}
-              </p>
-            ))}
-        </div>
-        <div className="inputContainer">
-          <Form.Control
-            type="text"
-            value={word}
-            placeholder="The wise always reads.."
-            onChange={(e) => setWord(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                e.preventDefault();
-                handleSubmit();
-                setWord("");
-              }
-            }}
-          />
-          <Button variant="dark" type="submit" onClick={handleSubmit}>
-            Get Meaning
-          </Button>
-          <Button variant="light" type="button" onClick={handleCopyClick}>
-            Copy All
-          </Button>
+    <WordProvider>
+      <div className="home">
+        <ToastContainer />
+        <div className="container">
+          <MeaningDisplay />
+          <WordInput />
         </div>
       </div>
-    </div>
+    </WordProvider>
   );
 };
 
