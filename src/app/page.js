@@ -11,7 +11,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 /*
-Homepage where a user will enter a word to get its meaning and the meaning will be displayed in a list form above the input field.
+Homepage where user will enter a word to get its meaning and the meaning will be displayed in a list form above the input field.
 Then the user can keep asking for more words and their meanings will be keep appending in that list
 When the user is finished, they can copy all the meanings to the clipboard and paste it wherever they want, it would be in the line by line format with word and its meaning separated by a colon and words highlighted in bold.
 */
